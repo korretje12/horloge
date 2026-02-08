@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>watcHaven - Horloge Collectie</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>⌚ watcHaven</h1>
+        <p>Jouw virtuele watchbox en wristcheck</p>
+    </header>
+
+    <nav>
+        <button class="nav-btn active" data-tab="database">Database</button>
+        <button class="nav-btn" data-tab="watchbox">Watchbox</button>
+        <button class="nav-btn" data-tab="wristcheck">Wristcheck</button>
+    </nav>
+
+    <main>
+        <!-- Database Tab -->
+        <section id="database" class="tab-content active">
+            <h2>Horloge Database</h2>
+            <div id="watch-list" class="watch-grid"></div>
+        </section>
+
+        <!-- Watchbox Tab -->
+        <section id="watchbox" class="tab-content">
+            <h2>Mijn Watchbox</h2>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Collectie</h3>
+                    <p class="stat-value" id="collection-count">0</p>
+                    <p class="stat-label">horloges</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Totale Waarde</h3>
+                    <p class="stat-value" id="total-value">€0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Wishlist</h3>
+                    <p class="stat-value" id="wishlist-count">0</p>
+                    <p class="stat-label">horloges</p>
+                </div>
+            </div>
+
+            <div class="brand-distribution">
+                <h3>Verdeling per Merk</h3>
+                <div id="brand-chart"></div>
+            </div>
+
+            <div class="most-worn">
+                <h3>Meest Gedragen</h3>
+                <div id="most-worn-list"></div>
+            </div>
+
+            <div class="collection-section">
+                <h3>In Collectie</h3>
+                <div id="collection-list" class="watch-grid"></div>
+            </div>
+
+            <div class="wishlist-section">
+                <h3>Wishlist</h3>
+                <div id="wishlist-list" class="watch-grid"></div>
+            </div>
+        </section>
+
+        <!-- Wristcheck Tab -->
+        <section id="wristcheck" class="tab-content">
+            <h2>Interactieve Wristcheck</h2>
+            
+            <div class="wristcheck-container">
+                <div class="wristcheck-canvas-wrapper">
+                    <canvas id="wristcheck-canvas"></canvas>
+                </div>
+                
+                <div class="wristcheck-controls">
+                    <h3>1. Kies een Pols Foto</h3>
+                    <div class="preset-buttons">
+                        <button onclick="selectPreset(1)">Preset 1</button>
+                        <button onclick="selectPreset(2)">Preset 2</button>
+                        <button onclick="selectPreset(3)">Preset 3</button>
+                    </div>
+                    <div class="upload-section">
+                        <label for="wrist-upload" class="upload-btn">Upload Eigen Foto</label>
+                        <input type="file" id="wrist-upload" accept="image/*" onchange="uploadWristPhoto(event)">
+                    </div>
+
+                    <h3>2. Selecteer een Horloge</h3>
+                    <select id="watch-select" onchange="selectWatch()">
+                        <option value="">-- Kies horloge --</option>
+                    </select>
+
+                    <div class="watch-controls">
+                        <h3>3. Pas Horloge Aan</h3>
+                        <label>Schaal: <input type="range" id="watch-scale" min="50" max="200" value="100" onchange="updateWatchPosition()"></label>
+                        <label>X Positie: <input type="range" id="watch-x" min="0" max="800" value="400" onchange="updateWatchPosition()"></label>
+                        <label>Y Positie: <input type="range" id="watch-y" min="0" max="600" value="300" onchange="updateWatchPosition()"></label>
+                        <label>Rotatie: <input type="range" id="watch-rotation" min="-45" max="45" value="0" onchange="updateWatchPosition()"></label>
+                    </div>
+
+                    <button onclick="saveWristcheck()" class="save-btn">Opslaan Wristcheck</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for watch details -->
+    <div id="watch-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
